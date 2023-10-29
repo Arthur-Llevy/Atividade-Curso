@@ -1,8 +1,30 @@
 package Telas;
 
-import com.formdev.flatlaf.FlatLaf;
+import Conectividades.Conexao;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.UIManager;
-
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.swing.JRViewer;
+import net.sf.jasperreports.view.JasperViewer;
+import javax.swing.*;
+import java.awt.event.*;
+import java.io.*;
+import java.util.List;
+import meusclientes.Cliente;
+        
 
 /**
  *
@@ -34,6 +56,8 @@ public class menu extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        meus_clientes_botao = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Clientes | Menu");
@@ -107,6 +131,18 @@ public class menu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu3.setText("Relatórios");
+
+        meus_clientes_botao.setText("Meus Clientes");
+        meus_clientes_botao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                meus_clientes_botaoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(meus_clientes_botao);
+
+        jMenuBar1.add(jMenu3);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -149,6 +185,38 @@ public class menu extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void meus_clientes_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meus_clientes_botaoActionPerformed
+        try {
+            File file = new File("relatorio.html");
+            FileWriter writer = new FileWriter("relatorio.html");
+            Conexao conexao = new Conexao();
+            List<Cliente> clientes = conexao.todosClientes();
+            String texto = "";
+            for(int i = 0; i < clientes.size(); i++){
+                texto = texto + "<tr> <td>" + clientes.get(i).getId() + "</td>" 
+                        + "<td>" + clientes.get(i).getNome() + "</td>"
+                        + "<td>" +  clientes.get(i).getCelular() + "</td>"
+                        + "<td>"  +  clientes.get(i).getTelefone() + "</td>" 
+                        + "<td>" + clientes.get(i).getEmail() +  "</td>" 
+                        + "<td>" + "<img src='" + clientes.get(i).getFoto() + "' alt='Foto indisponível'" + "</td> </tr>";
+            }
+            writer.write("<!DOCTYPE html>\n<html>\n <head> <link rel='stylesheet' href='styles.css'> </head> \n<body>\n <header> <h1>Relatório - Clientes</h1>\n <img src='./src/Telas/ETE_logo.png'> </header> "
+                    + "<div class='container'>"
+                    + " <table>"
+                    + "<tr> <th>Código</th> <th>Nome</th> <th>Telefone</th> <th>Celular</th> <th>E-mail</th> <th>Foto</th> <tr/>"
+                    + texto  
+                    + "</table>"
+                    + "</div>"
+                    + "</body>\n</html>");
+            writer.close();
+            JOptionPane.showMessageDialog(null, "Relatŕio HTML criado com sucesso. \n Diretório: '/src/relatorio.html'"); 
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_meus_clientes_botaoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -181,10 +249,12 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem meus_clientes_botao;
     // End of variables declaration//GEN-END:variables
 }

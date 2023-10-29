@@ -5,9 +5,11 @@
 package Telas;
 
 import Conectividades.*;
+import java.awt.Image;
 import javax.swing.JOptionPane;
 import meusclientes.*;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
 /**
@@ -46,10 +48,13 @@ public class AtuCliente extends javax.swing.JFrame {
         celular = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         email = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        botao_atualizar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        botao_fechar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        foto = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        campo_foto = new javax.swing.JFileChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Clientes | Atualizar");
@@ -128,13 +133,13 @@ public class AtuCliente extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 95, 255));
-        jButton1.setFont(new java.awt.Font("JetBrains Mono", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Atualizar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botao_atualizar.setBackground(new java.awt.Color(0, 95, 255));
+        botao_atualizar.setFont(new java.awt.Font("JetBrains Mono", 1, 14)); // NOI18N
+        botao_atualizar.setForeground(new java.awt.Color(255, 255, 255));
+        botao_atualizar.setText("Atualizar");
+        botao_atualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botao_atualizarActionPerformed(evt);
             }
         });
 
@@ -148,13 +153,13 @@ public class AtuCliente extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(0, 95, 255));
-        jButton3.setFont(new java.awt.Font("JetBrains Mono", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Fechar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        botao_fechar.setBackground(new java.awt.Color(0, 95, 255));
+        botao_fechar.setFont(new java.awt.Font("JetBrains Mono", 1, 14)); // NOI18N
+        botao_fechar.setForeground(new java.awt.Color(255, 255, 255));
+        botao_fechar.setText("Fechar");
+        botao_fechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                botao_fecharActionPerformed(evt);
             }
         });
 
@@ -171,17 +176,20 @@ public class AtuCliente extends javax.swing.JFrame {
             .addGap(0, 4, Short.MAX_VALUE)
         );
 
+        foto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Telas/ETE_logo.png"))); // NOI18N
+
+        jLabel8.setFont(new java.awt.Font("JetBrains Mono Light", 0, 13)); // NOI18N
+        jLabel8.setText("Foto");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -204,54 +212,74 @@ public class AtuCliente extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(botaoBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(89, 89, 89))))
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addComponent(botaoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                                .addComponent(foto, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(174, 174, 174)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(botao_atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton2)
+                                    .addComponent(botao_fechar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(44, 44, 44)
+                                .addComponent(campo_foto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(25, 25, 25))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1)
-                .addGap(32, 32, 32)
+                .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(botaoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addGap(57, 57, 57)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(celular, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel5)
+                                    .addComponent(telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(celular, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(22, 22, 22)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(foto))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(campo_foto, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(botao_atualizar)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(49, Short.MAX_VALUE))
+                        .addComponent(botao_fechar)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -262,28 +290,72 @@ public class AtuCliente extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
+    private void botao_fecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_fecharActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nomeActionPerformed
+        menu TelaMenu = new menu();
+        TelaMenu.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_botao_fecharActionPerformed
 
-    private void telefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefoneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefoneActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int Codigo = Integer.parseInt(codigo.getText());
+        String nome = "";
+        String telefone = "";
+        String celular = "";
+        String email = "";
+
+        try {
+
+            Cliente cliente = new Cliente(Codigo, nome, telefone, celular, email);
+            Conexao conexao = new Conexao();
+            conexao.deletarCliente(cliente);
+            JOptionPane.showMessageDialog(null, "Cliente excluído do com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+
+        }catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "Falha ao excluir cliente do banco de dados. Tente novamente mais tarde.", "Aviso", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void botao_atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_atualizarActionPerformed
+        int Id = Integer.parseInt(codigo.getText());
+        String Nome = nome.getText();
+        String Celular = celular.getText();
+        String Telefone = telefone.getText();
+        String Email = email.getText();
+        String Foto = campo_foto.getSelectedFile().getAbsolutePath();
+        
+
+        try {
+            Cliente cliente =  new Cliente(Nome, Celular, Telefone, Email, Foto);
+            Conexao conexao = new Conexao();            
+            conexao.atualizarCliente(cliente, Id);
+            JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_botao_atualizarActionPerformed
 
     private void celularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_celularActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_celularActionPerformed
 
-    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
+    private void telefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefoneActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_emailActionPerformed
+    }//GEN-LAST:event_telefoneActionPerformed
+
+    private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeActionPerformed
 
     private void codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoActionPerformed
         // TODO add your handling code here:
@@ -296,67 +368,31 @@ public class AtuCliente extends javax.swing.JFrame {
         Conexao conexao = new Conexao();
         try {
             cliente = conexao.procurarCliente(cliente.getId());
-            
+
             if (cliente.getId() != 0){
-                    nome.setText(cliente.getNome());
-                    telefone.setText(cliente.getTelefone());
-                    celular.setText(cliente.getCelular());
-                    email.setText(cliente.getEmail());
+                nome.setText(cliente.getNome());
+                telefone.setText(cliente.getTelefone());
+                celular.setText(cliente.getCelular());
+                email.setText(cliente.getEmail());
+                
+                ImageIcon icon = new ImageIcon(cliente.getFoto());
+                Image image = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+                foto.setIcon(new ImageIcon(image));
+                
+                System.out.println(cliente.getFoto());
+                System.out.println(icon);
             }else {
                 JOptionPane.showMessageDialog(null, "Cliente não encontrado.", "Aviso", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e){
             JOptionPane.showMessageDialog(null, "Erro ao realizar consulta. Tente novamente mais tarde.", "Aviso", JOptionPane.ERROR_MESSAGE);
         }
-                
+
     }//GEN-LAST:event_botaoBuscarActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
         // TODO add your handling code here:
-        menu TelaMenu = new menu();
-        TelaMenu.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int Codigo = Integer.parseInt(codigo.getText());
-        String nome = "";
-        String telefone = "";
-        String celular = "";
-        String email = "";
-        
-        try {
-            
-            Cliente cliente = new Cliente(Codigo, nome, telefone, celular, email);
-            Conexao conexao = new Conexao();
-            conexao.deletarCliente(cliente);
-            JOptionPane.showMessageDialog(null, "Cliente excluído do com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            
-        }catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Falha ao excluir cliente do banco de dados. Tente novamente mais tarde.", "Aviso", JOptionPane.ERROR_MESSAGE);
-        }
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int Id = Integer.parseInt(codigo.getText());
-        String Nome = nome.getText();
-        String Celular = celular.getText();
-        String Telefone = telefone.getText();
-        String Email = email.getText();
-        
-        try {
-            Cliente cliente =  new Cliente(Nome, Celular, Telefone, Email);
-            Conexao conexao = new Conexao();
-            
-            conexao.atualizarCliente(cliente, Id);
-            JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_emailActionPerformed
 
     /**
      * @param args the command line arguments
@@ -391,12 +427,14 @@ public class AtuCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoBuscar;
+    private javax.swing.JButton botao_atualizar;
+    private javax.swing.JButton botao_fechar;
+    private javax.swing.JFileChooser campo_foto;
     private javax.swing.JTextField celular;
     private javax.swing.JTextField codigo;
     private javax.swing.JTextField email;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel foto;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -404,6 +442,7 @@ public class AtuCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField nome;

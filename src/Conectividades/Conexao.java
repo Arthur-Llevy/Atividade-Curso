@@ -5,11 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultListModel;
 import meusclientes.*;
-import Telas.*;
+
+import java.util.ArrayList;
 
 public class Conexao {
  
@@ -18,16 +17,19 @@ public class Conexao {
     private final String usuario = "arthur";
     private final String senha = "123";
     private Connection con;
-    private PreparedStatement stm;
+    private PreparedStatement stm;  
+  
+    
     
     public void cadastrarCliente(Cliente cliente) throws SQLException{
         try{
             this.con = DriverManager.getConnection(fonte, this.usuario, this.senha);        
-            this.stm = this.con.prepareStatement("INSERT INTO" + " cliente (nome, telefone, celular, email)" + " values(?, ?, ?, ?)");
+            this.stm = this.con.prepareStatement("INSERT INTO" + " cliente (nome, telefone, celular, email, foto)" + " values(?, ?, ?, ?, ?)");
             this.stm.setString(1, cliente.getNome());
             this.stm.setString(2, cliente.getCelular());
             this.stm.setString(3, cliente.getTelefone());
             this.stm.setString(4, cliente.getEmail());
+            this.stm.setString(5, cliente.getFoto());
             this.stm.execute();
             this.stm.close();            
         } catch(SQLException e){
@@ -50,6 +52,7 @@ public class Conexao {
                 cliente.setTelefone(rs.getString("telefone"));
                 cliente.setCelular(rs.getString("celular"));
                 cliente.setEmail(rs.getString("email"));
+                cliente.setFoto(rs.getString("foto"));
             }
             
             this.con.close();           
@@ -64,12 +67,13 @@ public class Conexao {
     public void atualizarCliente(Cliente cliente, int id) throws SQLException{
         try{
             this.con = DriverManager.getConnection(fonte, usuario, senha);
-            this.stm = this.con.prepareStatement("UPDATE cliente SET nome = ?," + "telefone = ?," + " celular = ?," + "email = ?" + " WHERE id = ?");
+            this.stm = this.con.prepareStatement("UPDATE cliente SET nome = ?," + "telefone = ?," + " celular = ?," + "email = ?,  foto = ? " + " WHERE id = ?");
             this.stm.setString((1), cliente.getNome());
             this.stm.setString((2), cliente.getTelefone());
             this.stm.setString((3), cliente.getCelular());
             this.stm.setString((4), cliente.getEmail());
-            this.stm.setInt(5, id);
+            this.stm.setString((5), cliente.getFoto());
+            this.stm.setInt(6, id);
             
             this.stm.executeUpdate();
             this.con.close();
@@ -105,13 +109,43 @@ public class Conexao {
                 String celular = resultados.getString("celular");
                 String telefone = resultados.getString("telefone");
                 String email = resultados.getString("email");
+                String foto = resultados.getString("foto");
                 
-                Cliente cliente = new Cliente(id, nome, telefone, celular, email);
+                Cliente cliente = new Cliente(id, nome, telefone, celular, email, foto);
                 clientes.add(cliente);
                 
                 
 //                System.out.println(resultados.getString("nome"));  
 //                System.out.println(clientes);  
+            }
+            
+            return clientes;
+            
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
+    
+        public List<Cliente> pesquisaAvancada(String sql) throws SQLException {
+        List<Cliente> clientes = new ArrayList<>();
+        try {
+            this.con = DriverManager.getConnection(fonte, usuario, senha);
+            this.stm = this.con.prepareStatement(sql);
+            
+            ResultSet resultados = this.stm.executeQuery();
+            
+            while(resultados.next()){
+                int id = resultados.getInt("id");
+                String nome = resultados.getString("nome");
+                String celular = resultados.getString("celular");
+                String telefone = resultados.getString("telefone");
+                String email = resultados.getString("email");
+                String foto = resultados.getString("foto");
+                
+                Cliente cliente = new Cliente(id, nome, telefone, celular, email, foto);
+                clientes.add(cliente);
             }
             
             return clientes;

@@ -2,6 +2,12 @@ package meusclientes;
 
 import Telas.*;
 
+import java.io.InputStream;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
+
 
 public class Meusclientes {
 

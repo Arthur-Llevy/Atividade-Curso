@@ -5,10 +5,16 @@
 package Telas;
 
 import Conectividades.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import meusclientes.Cliente;
 
 
@@ -44,8 +50,6 @@ public class TodosClientes extends javax.swing.JFrame {
         lista_telefones = new javax.swing.JList<>();
         jScrollPane4 = new javax.swing.JScrollPane();
         lista_emails = new javax.swing.JList<>();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        lista_celulares = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -53,6 +57,12 @@ public class TodosClientes extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        lista_celulares = new javax.swing.JList<>();
+        pesquisar_sql = new javax.swing.JButton();
+        campo_sql = new javax.swing.JTextField();
+        botao_relatorio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -80,9 +90,6 @@ public class TodosClientes extends javax.swing.JFrame {
 
         lista_emails.setBackground(new java.awt.Color(250, 250, 250));
         jScrollPane4.setViewportView(lista_emails);
-
-        lista_celulares.setBackground(new java.awt.Color(250, 250, 250));
-        jScrollPane5.setViewportView(lista_celulares);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -114,6 +121,34 @@ public class TodosClientes extends javax.swing.JFrame {
             }
         });
 
+        jLabel13.setFont(new java.awt.Font("JetBrains Mono Light", 1, 14)); // NOI18N
+        jLabel13.setText("Pesquisa avançada - Digite uma Query SQL");
+
+        lista_celulares.setBackground(new java.awt.Color(250, 250, 250));
+        jScrollPane6.setViewportView(lista_celulares);
+
+        pesquisar_sql.setBackground(new java.awt.Color(0, 95, 255));
+        pesquisar_sql.setFont(new java.awt.Font("JetBrains Mono", 1, 14)); // NOI18N
+        pesquisar_sql.setForeground(new java.awt.Color(255, 255, 255));
+        pesquisar_sql.setText("Pesquisar");
+        pesquisar_sql.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisar_sqlActionPerformed(evt);
+            }
+        });
+
+        campo_sql.setBackground(new java.awt.Color(204, 204, 204));
+
+        botao_relatorio.setBackground(new java.awt.Color(0, 95, 255));
+        botao_relatorio.setFont(new java.awt.Font("JetBrains Mono", 1, 14)); // NOI18N
+        botao_relatorio.setForeground(new java.awt.Color(255, 255, 255));
+        botao_relatorio.setText("Relatório");
+        botao_relatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_relatorioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -122,20 +157,23 @@ public class TodosClientes extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(456, 456, 456)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -145,18 +183,27 @@ public class TodosClientes extends javax.swing.JFrame {
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING))))
-                .addContainerGap(71, Short.MAX_VALUE))
+                        .addGap(461, 461, 461)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pesquisar_sql, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botao_relatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(16, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campo_sql, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addGap(15, 15, 15)))
+                .addGap(349, 349, 349))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
@@ -167,28 +214,36 @@ public class TodosClientes extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(36, 36, 36)
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campo_sql, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(pesquisar_sql)
+                .addGap(8, 8, 8)
+                .addComponent(botao_relatorio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addGap(32, 32, 32))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -232,6 +287,73 @@ public class TodosClientes extends javax.swing.JFrame {
         MenuTela.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void pesquisar_sqlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisar_sqlActionPerformed
+        Conexao conexao = new Conexao();
+        DefaultListModel<String> modelNomes = new DefaultListModel<>();
+        DefaultListModel<String> modelIds = new DefaultListModel<>();
+        DefaultListModel<String> modelTelefones = new DefaultListModel<>();
+        DefaultListModel<String> modelCelulares = new DefaultListModel<>();
+        DefaultListModel<String> modelEmails = new DefaultListModel<>();
+        
+        try {
+            List<Cliente> clientes = conexao.pesquisaAvancada(campo_sql.getText());
+            
+            for(Cliente cliente: clientes){                
+                modelNomes.addElement(cliente.getNome());
+                modelIds.addElement(Integer.toString(cliente.getId()));
+                modelTelefones.addElement(cliente.getTelefone());
+                modelCelulares.addElement(cliente.getCelular());
+                modelEmails.addElement(cliente.getEmail());
+            }
+            
+            lista_nomes.setModel(modelNomes);
+            lista_ids.setModel(modelIds);
+            lista_telefones.setModel(modelTelefones);
+            lista_celulares.setModel(modelCelulares);
+            lista_emails.setModel(modelEmails);
+            
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_pesquisar_sqlActionPerformed
+
+    private void botao_relatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_relatorioActionPerformed
+        try {
+            File file = new File("relatorio.html");
+            FileWriter writer = new FileWriter("relatorio.html");
+            Conexao conexao = new Conexao();
+            if(campo_sql.getText() == ""){
+                JOptionPane.showMessageDialog(null, "Por favor, digite uma Query SQL e faça uma consulta antes de pedir o relatório."); 
+            }else {
+                List<Cliente> clientes = conexao.pesquisaAvancada(campo_sql.getText());
+                String texto = "";
+                for(int i = 0; i < clientes.size(); i++){
+                    texto = texto + "<tr> <td>" + clientes.get(i).getId() + "</td>" 
+                            + "<td>" + clientes.get(i).getNome() + "</td>"
+                            + "<td>" +  clientes.get(i).getCelular() + "</td>"
+                            + "<td>"  +  clientes.get(i).getTelefone() + "</td>" 
+                            + "<td>" + clientes.get(i).getEmail() +  "</td>" 
+                            + "<td>" + "<img src='" + clientes.get(i).getFoto() + "' alt='Foto indisponível'" + "</td> </tr>";
+                }
+                writer.write("<!DOCTYPE html>\n<html>\n <head> <link rel='stylesheet' href='styles.css'> </head> \n<body>\n <header> <h1>Relatório - Clientes</h1>\n <img src='./src/Telas/ETE_logo.png'> </header> "
+                        + "<div class='container'>"
+                        + " <table>"
+                        + "<tr> <th>Código</th> <th>Nome</th> <th>Telefone</th> <th>Celular</th> <th>E-mail</th> <th>Foto</th> <tr/>"
+                        + texto  
+                        + "</table>"
+                        + "</div>"
+                        + "</body>\n</html>");
+                writer.close();
+                JOptionPane.showMessageDialog(null, "Relatŕio HTML criado com sucesso. \n Diretório: '/src/relatorio.html'"); 
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_botao_relatorioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -271,12 +393,15 @@ public class TodosClientes extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botao_relatorio;
+    private javax.swing.JTextField campo_sql;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -284,11 +409,12 @@ public class TodosClientes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JList<String> lista_celulares;
     private javax.swing.JList<String> lista_emails;
     private javax.swing.JList<String> lista_ids;
     private javax.swing.JList<String> lista_nomes;
     private javax.swing.JList<String> lista_telefones;
+    private javax.swing.JButton pesquisar_sql;
     // End of variables declaration//GEN-END:variables
 }

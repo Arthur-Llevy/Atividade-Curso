@@ -6,8 +6,10 @@ public class Cliente {
     private String TELEFONE;
     private String CELULAR;
     private String EMAIL;
+    private String FOTO;
     
-    public Cliente(int id, String nome, String telefone, String celular, String email){
+    //provisório
+     public Cliente(int id, String nome, String telefone, String celular, String email){
         this.ID = id;
         this.NOME = nome;
         this.TELEFONE = telefone;
@@ -15,14 +17,38 @@ public class Cliente {
         this.EMAIL = email;
     }
     
+    public Cliente(int id, String nome, String telefone, String celular, String email, String foto){
+        this.ID = id;
+        this.NOME = nome;
+        this.TELEFONE = telefone;
+        this.CELULAR = celular;
+        this.EMAIL = email;
+        this.FOTO = foto;
+    }
+    
     public Cliente(){}
     
-    public Cliente(String nome, String telefone, String celular, String email){
+    public Cliente(int id, String nome){
+        this.ID = id;
+        this.NOME = nome;
+    }
+    
+    public Cliente(String nome, String telefone, String celular, String email, String foto){
+        this.NOME = nome;
+        this.TELEFONE = telefone;
+        this.CELULAR = celular;
+        this.EMAIL = email;
+        this.FOTO = foto;
+    }
+    
+    //provisório
+     public Cliente(String nome, String telefone, String celular, String email){
         this.NOME = nome;
         this.TELEFONE = telefone;
         this.CELULAR = celular;
         this.EMAIL = email;
     }
+    
     
     public int getId(){
         return ID;
@@ -64,6 +90,13 @@ public class Cliente {
         this.EMAIL = email;
     }
     
+    public void setFoto(String foto){
+        this.FOTO = foto;
+    }
+    
+    public String getFoto(){
+        return this.FOTO;
+    }
     
     
 }
